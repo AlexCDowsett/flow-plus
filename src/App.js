@@ -393,9 +393,9 @@ function App() {
     // Remove any metadata that might have been added - keep only original structure
     delete dataToDownload.layoutInfo;
 
-    // Create filename with timestamp
+    // Create filename with timestamp and downloads folder prefix
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const filename = `${dataToDownload.scriptName || 'flow'}_${selectedMethod}${enableOverlapOptimization ? '_optimized' : ''}_${timestamp}.json`;
+    const filename = `downloads/${dataToDownload.scriptName || 'flow'}_${selectedMethod}${enableOverlapOptimization ? '_optimized' : ''}_${timestamp}.json`;
 
     // Create and trigger download
     const blob = new Blob([JSON.stringify(dataToDownload, null, 2)], { type: 'application/json' });
@@ -411,6 +411,7 @@ function App() {
     const rerouteCount = dataToDownload.cells ? dataToDownload.cells.filter(cell => cell.type === 24).length : 0;
     console.log(`📥 Downloaded layout: ${filename}`);
     console.log(`📊 Cells: ${dataToDownload.cells ? dataToDownload.cells.length : 0}, Reroutes: ${rerouteCount}`);
+    console.log(`💾 Please save this file in the 'downloads' folder of your flow-plus directory`);
   };
 
   // Rendering functions
@@ -667,7 +668,7 @@ function App() {
               className="download-button"
               disabled={!getCurrentData()}
             >
-              📥 Download Current Layout
+              📥 Download to /downloads folder
             </button>
           </div>
           
