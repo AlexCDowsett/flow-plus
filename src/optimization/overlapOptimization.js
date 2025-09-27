@@ -189,6 +189,18 @@ const getNextRerouteId = (cells) => {
 };
 
 /**
+ * Generate a UUID-style key for exit points
+ * @returns {string} - UUID-style key
+ */
+const generateKey = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+};
+
+/**
  * Create U-shaped reroute cells with layered positioning
  * @param {number} fromId - Source cell ID
  * @param {number} toId - Target cell ID
@@ -233,55 +245,79 @@ const createUShapeReroute = (fromId, toId, fromCell, toCell, flowBounds, layerIn
   const reroute1Id = nextRerouteId;
   const reroute2Id = nextRerouteId + 1;
   
-  const reroute1 = {
-    allowAllRoutes: true,
-    type: 24,
-    id: reroute1Id,
-    canvas: {
-      position: { x: shiftedFromX, y: gridUpY },
-      colour: "#4A9EFF",
-      customName: "",
-      properties: {},
-      id: reroute1Id
-    },
-    properties: { commenttext: "U-Reroute Up" },
-    exitPoints: [{
-      actionCellId: reroute1Id,
-      order: 0,
-      name: "complete",
-      connected: reroute2Id,
-      endScript: false,
-      key: `reroute_${reroute1Id}`,
-      properties: [],
-      custom: false
-    }],
-    version: 2
-  };
+      const reroute1 = {
+        allowAllRoutes: true,
+        type: 24,
+        id: reroute1Id,
+        canvas: {
+          position: { x: shiftedFromX, y: gridUpY },
+          colour: "#4A9EFF",
+          customName: "reroute",
+          properties: {},
+          id: reroute1Id
+        },
+        properties: { commenttext: "U-Reroute Up" },
+        exitPoints: [
+          {
+            actionCellId: reroute1Id,
+            order: 0,
+            name: "complete",
+            connected: reroute2Id,
+            endScript: false,
+            key: generateKey(),
+            properties: [],
+            custom: false
+          },
+          {
+            actionCellId: reroute1Id,
+            order: 1,
+            name: "error",
+            connected: reroute2Id,
+            endScript: false,
+            key: generateKey(),
+            properties: [],
+            custom: false
+          }
+        ],
+        version: 2
+      };
 
-  const reroute2 = {
-    allowAllRoutes: true,
-    type: 24,
-    id: reroute2Id,
-    canvas: {
-      position: { x: shiftedToX, y: gridUpY },
-      colour: "#4A9EFF",
-      customName: "",
-      properties: {},
-      id: reroute2Id
-    },
-    properties: { commenttext: "U-Reroute Down" },
-    exitPoints: [{
-      actionCellId: reroute2Id,
-      order: 0,
-      name: "complete",
-      connected: toId,
-      endScript: false,
-      key: `reroute_${reroute2Id}`,
-      properties: [],
-      custom: false
-    }],
-    version: 2
-  };
+      const reroute2 = {
+        allowAllRoutes: true,
+        type: 24,
+        id: reroute2Id,
+        canvas: {
+          position: { x: shiftedToX, y: gridUpY },
+          colour: "#4A9EFF",
+          customName: "reroute",
+          properties: {},
+          id: reroute2Id
+        },
+        properties: { commenttext: "U-Reroute Down" },
+        exitPoints: [
+          {
+            actionCellId: reroute2Id,
+            order: 0,
+            name: "complete",
+            connected: toId,
+            endScript: false,
+            key: generateKey(),
+            properties: [],
+            custom: false
+          },
+          {
+            actionCellId: reroute2Id,
+            order: 1,
+            name: "error",
+            connected: toId,
+            endScript: false,
+            key: generateKey(),
+            properties: [],
+            custom: false
+          }
+        ],
+        version: 2
+      };
 
   return [reroute1, reroute2];
 };
@@ -338,21 +374,33 @@ const createNShapeReroute = (fromId, toId, fromCell, toCell, flowBounds, layerIn
     canvas: {
       position: { x: shiftedFromX, y: gridUpY },
       colour: "#4A9EFF",
-      customName: "",
+      customName: "reroute",
       properties: {},
       id: reroute1Id
     },
     properties: { commenttext: "N-Reroute Up" },
-    exitPoints: [{
-      actionCellId: reroute1Id,
-      order: 0,
-      name: "complete",
-      connected: reroute2Id,
-      endScript: false,
-      key: `reroute_${reroute1Id}`,
-      properties: [],
-      custom: false
-    }],
+    exitPoints: [
+      {
+        actionCellId: reroute1Id,
+        order: 0,
+        name: "complete",
+        connected: reroute2Id,
+        endScript: false,
+        key: generateKey(),
+        properties: [],
+        custom: false
+      },
+      {
+        actionCellId: reroute1Id,
+        order: 1,
+        name: "error",
+        connected: reroute2Id,
+        endScript: false,
+        key: generateKey(),
+        properties: [],
+        custom: false
+      }
+    ],
     version: 2
   };
 
@@ -363,21 +411,33 @@ const createNShapeReroute = (fromId, toId, fromCell, toCell, flowBounds, layerIn
     canvas: {
       position: { x: shiftedToX, y: gridUpY },
       colour: "#4A9EFF",
-      customName: "",
+      customName: "reroute",
       properties: {},
       id: reroute2Id
     },
     properties: { commenttext: "N-Reroute Down" },
-    exitPoints: [{
-      actionCellId: reroute2Id,
-      order: 0,
-      name: "complete",
-      connected: toId,
-      endScript: false,
-      key: `reroute_${reroute2Id}`,
-      properties: [],
-      custom: false
-    }],
+    exitPoints: [
+      {
+        actionCellId: reroute2Id,
+        order: 0,
+        name: "complete",
+        connected: toId,
+        endScript: false,
+        key: generateKey(),
+        properties: [],
+        custom: false
+      },
+      {
+        actionCellId: reroute2Id,
+        order: 1,
+        name: "error",
+        connected: toId,
+        endScript: false,
+        key: generateKey(),
+        properties: [],
+        custom: false
+      }
+    ],
     version: 2
   };
 
@@ -502,6 +562,32 @@ export const applyOverlapOptimization = (data) => {
     console.log(`🔄 Applied layered U-shape rerouting for connection ${conn.from} -> ${conn.to} (layer ${index}, distance ${distance.toFixed(0)})`);
   });
   
+  // Update the links array to include reroute connections
+  const updatedLinks = [...(data.links || [])];
+  
+  // Add new links for reroute cells
+  connectionsToReroute.forEach(({ conn, fromCell, toCell, distance }, index) => {
+    const reroute1Id = getNextRerouteId(cells) + (index * 2);
+    const reroute2Id = reroute1Id + 1;
+    
+    // Remove original link
+    const originalLinkIndex = updatedLinks.findIndex(link => 
+      link.from === conn.from && link.to === conn.to
+    );
+    if (originalLinkIndex !== -1) {
+      updatedLinks.splice(originalLinkIndex, 1);
+    }
+    
+    // Add new links: from -> reroute1 -> reroute2 -> to
+    updatedLinks.push(
+      { from: conn.from, to: reroute1Id },
+      { from: reroute1Id, to: reroute2Id },
+      { from: reroute2Id, to: conn.to }
+    );
+    
+    console.log(`🔗 Updated links: ${conn.from} -> ${reroute1Id} -> ${reroute2Id} -> ${conn.to}`);
+  });
+
   // Validate connections after rerouting
   console.log('🔍 Validating connections after rerouting...');
   const rerouteCells = finalCells.filter(cell => cell.type === 24);
@@ -515,6 +601,11 @@ export const applyOverlapOptimization = (data) => {
   console.log('✅ Overlap optimization complete!');
   console.log('📊 Final cell count:', finalCells.length);
   console.log('🔀 Reroute cells added:', rerouteCells.length);
+  console.log('🔗 Links updated:', updatedLinks.length);
   
-  return { ...data, cells: finalCells };
+  return { 
+    ...data, 
+    cells: finalCells,
+    links: updatedLinks
+  };
 };
