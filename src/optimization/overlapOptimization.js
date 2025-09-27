@@ -409,7 +409,8 @@ export const applyOverlapOptimization = (data) => {
           connections.push({
             from: cell.id,
             to: exitPoint.connected,
-            name: exitPoint.name
+            name: exitPoint.name,
+            exitPoint: exitPoint // Keep reference to the exit point for updating
           });
         }
       });
@@ -473,15 +474,27 @@ export const applyOverlapOptimization = (data) => {
     // Create U/N-shaped reroute with layer index
     const rerouteCells = createUShapeReroute(conn.from, conn.to, fromCell, toCell, flowBounds, index, nextRerouteId);
     
-    // Update connection to use first reroute
+    // Update the original connection to use first reroute
     const fromCellIndex = finalCells.findIndex(c => c.id === conn.from);
     if (fromCellIndex !== -1) {
-      finalCells[fromCellIndex] = {
-        ...finalCells[fromCellIndex],
-        exitPoints: finalCells[fromCellIndex].exitPoints.map(ep => 
-          ep.connected === conn.to ? { ...ep, connected: rerouteCells[0].id } : ep
-        )
-      };
+      // Find the specific exit point that connects to the target
+      const exitPointIndex = finalCells[fromCellIndex].exitPoints.findIndex(ep => 
+        ep.connected === conn.to && ep.actionCellId === conn.from
+      );
+      
+      if (exitPointIndex !== -1) {
+        // Update the exit point to connect to the first reroute cell
+        finalCells[fromCellIndex].exitPoints[exitPointIndex] = {
+          ...finalCells[fromCellIndex].exitPoints[exitPointIndex],
+          connected: rerouteCells[0].id
+        };
+        
+        console.log(`🔗 Updated connection: ${conn.from} -> ${rerouteCells[0].id} (was ${conn.to})`);
+      } else {
+        console.warn(`⚠️ Could not find exit point for connection ${conn.from} -> ${conn.to}`);
+      }
+    } else {
+      console.warn(`⚠️ Could not find source cell ${conn.from}`);
     }
     
     finalCells.push(...rerouteCells);
@@ -489,9 +502,19 @@ export const applyOverlapOptimization = (data) => {
     console.log(`🔄 Applied layered U-shape rerouting for connection ${conn.from} -> ${conn.to} (layer ${index}, distance ${distance.toFixed(0)})`);
   });
   
+  // Validate connections after rerouting
+  console.log('🔍 Validating connections after rerouting...');
+  const rerouteCells = finalCells.filter(cell => cell.type === 24);
+  rerouteCells.forEach(reroute => {
+    const connections = finalCells.filter(cell => 
+      cell.exitPoints && cell.exitPoints.some(ep => ep.connected === reroute.id)
+    );
+    console.log(`🔗 Reroute ${reroute.id} is connected from:`, connections.map(c => c.id));
+  });
+  
   console.log('✅ Overlap optimization complete!');
   console.log('📊 Final cell count:', finalCells.length);
-  console.log('🔀 Reroute cells added:', finalCells.filter(cell => cell.type === 24).length);
+  console.log('🔀 Reroute cells added:', rerouteCells.length);
   
   return { ...data, cells: finalCells };
 };
