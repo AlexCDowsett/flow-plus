@@ -390,13 +390,8 @@ function App() {
     // Create a deep copy of the current data
     const dataToDownload = JSON.parse(JSON.stringify(currentData));
     
-    // Add metadata about the layout and optimization
-    dataToDownload.layoutInfo = {
-      method: selectedMethod,
-      overlapOptimization: enableOverlapOptimization,
-      timestamp: new Date().toISOString(),
-      rerouteCellsCount: dataToDownload.cells ? dataToDownload.cells.filter(cell => cell.type === 24).length : 0
-    };
+    // Remove any metadata that might have been added - keep only original structure
+    delete dataToDownload.layoutInfo;
 
     // Create filename with timestamp
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
@@ -413,8 +408,9 @@ function App() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
+    const rerouteCount = dataToDownload.cells ? dataToDownload.cells.filter(cell => cell.type === 24).length : 0;
     console.log(`📥 Downloaded layout: ${filename}`);
-    console.log(`📊 Cells: ${dataToDownload.cells ? dataToDownload.cells.length : 0}, Reroutes: ${dataToDownload.layoutInfo.rerouteCellsCount}`);
+    console.log(`📊 Cells: ${dataToDownload.cells ? dataToDownload.cells.length : 0}, Reroutes: ${rerouteCount}`);
   };
 
   // Rendering functions
