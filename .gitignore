@@ -83,6 +83,3 @@ jspm_packages/
 
 # DynamoDB Local files
 .dynamodb/
-
-# Downloads folder for exported JSON files
-downloads/

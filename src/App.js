@@ -379,39 +379,53 @@ function App() {
     setIsDragging(false);
   };
 
-  // Download current layout as JSON
-  const downloadCurrentLayout = () => {
+  // Save current layout as JSON to downloads folder
+  const saveCurrentLayout = async () => {
     const currentData = getCurrentData();
     if (!currentData) {
-      console.error('❌ No data to download');
+      console.error('❌ No data to save');
       return;
     }
 
     // Create a deep copy of the current data
-    const dataToDownload = JSON.parse(JSON.stringify(currentData));
+    const dataToSave = JSON.parse(JSON.stringify(currentData));
     
     // Remove any metadata that might have been added - keep only original structure
-    delete dataToDownload.layoutInfo;
+    delete dataToSave.layoutInfo;
 
-    // Create filename with timestamp and downloads folder prefix
+    // Create filename with timestamp
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    const filename = `downloads/${dataToDownload.scriptName || 'flow'}_${selectedMethod}${enableOverlapOptimization ? '_optimized' : ''}_${timestamp}.json`;
+    const filename = `${dataToSave.scriptName || 'flow'}_${selectedMethod}${enableOverlapOptimization ? '_optimized' : ''}_${timestamp}.json`;
 
-    // Create and trigger download
-    const blob = new Blob([JSON.stringify(dataToDownload, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    try {
+      // Send data to server to save in downloads folder
+      const response = await fetch('http://localhost:3001/api/save-layout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: filename,
+          data: dataToSave
+        })
+      });
 
-    const rerouteCount = dataToDownload.cells ? dataToDownload.cells.filter(cell => cell.type === 24).length : 0;
-    console.log(`📥 Downloaded layout: ${filename}`);
-    console.log(`📊 Cells: ${dataToDownload.cells ? dataToDownload.cells.length : 0}, Reroutes: ${rerouteCount}`);
-    console.log(`💾 Please save this file in the 'downloads' folder of your flow-plus directory`);
+      if (response.ok) {
+        const result = await response.json();
+        const rerouteCount = dataToSave.cells ? dataToSave.cells.filter(cell => cell.type === 24).length : 0;
+        console.log(`✅ Layout saved: ${filename}`);
+        console.log(`📊 Cells: ${dataToSave.cells ? dataToSave.cells.length : 0}, Reroutes: ${rerouteCount}`);
+        console.log(`📁 File saved to: flow-plus/downloads/ folder`);
+        alert(`✅ Layout saved successfully!\n📁 File: ${filename}\n📂 Location: flow-plus/downloads/`);
+      } else {
+        const error = await response.json();
+        console.error('❌ Failed to save layout:', error);
+        alert(`❌ Failed to save layout: ${error.error}`);
+      }
+    } catch (error) {
+      console.error('❌ Error saving layout:', error);
+      alert(`❌ Error saving layout: ${error.message}\n\nMake sure the server is running (npm run server)`);
+    }
   };
 
   // Rendering functions
@@ -664,11 +678,11 @@ function App() {
           
           <div className="control-group">
             <button
-              onClick={downloadCurrentLayout}
+              onClick={saveCurrentLayout}
               className="download-button"
               disabled={!getCurrentData()}
             >
-              📥 Download to /downloads folder
+              💾 Save to Downloads Folder
             </button>
           </div>
           
