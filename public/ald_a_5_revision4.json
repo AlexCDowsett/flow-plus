@@ -1,0 +1,1780 @@
+{
+	"notes": [],
+	"scriptId": 623237,
+	"scriptServiceType": 1,
+	"scriptName": "ald_a_5",
+	"cells": [
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 37,
+					"y": 0
+				},
+				"colour": "#23ae06",
+				"customName": "",
+				"properties": {},
+				"id": 0
+			},
+			"type": -1,
+			"id": 0,
+			"properties": {
+				"inputvariable": [],
+				"outputvariable": [],
+				"sendringing": false,
+				"usecleardownservice": false,
+				"service": "",
+				"cleardowninputvariables": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 0,
+					"order": 0,
+					"name": "complete",
+					"connected": 3,
+					"endScript": false,
+					"key": "71307134-7e45-4359-bf06-85965af8ae27",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 400,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 1
+			},
+			"type": 3,
+			"id": 1,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"medialistselectionmethod": "static",
+				"skipintro": false,
+				"timeout": 5,
+				"interdigittimeout": 4,
+				"maxdigittimeout": 30,
+				"maxretries": 1,
+				"dataentry": "strPinEntry",
+				"promptintro": "2 - EnterPin",
+				"introselectionmethod": "static",
+				"noresponseselectionmethod": "static",
+				"promptnoresponse": "2 - EnterPin",
+				"invalidresponseselectionmethod": "static",
+				"promptinvalid": "3 - InvalidPin",
+				"limitvalidentries": false,
+				"minvalidvalue": 0,
+				"maxvalidvalue": 0,
+				"terminationkeys": true,
+				"dtmf": [
+					"dtmf_#",
+					"dtmf_*"
+				]
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 1,
+					"order": 0,
+					"name": "datacaptured",
+					"connected": 4,
+					"endScript": false,
+					"key": "7c6b06b4-69d3-454d-9c6a-0096c183000f",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 1,
+					"order": 1,
+					"name": "noresponse",
+					"connected": 36,
+					"endScript": false,
+					"key": "d1f8051e-43d2-4a7e-b89f-0c266fcaa334",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 1,
+					"order": 2,
+					"name": "invalidresponse",
+					"connected": 36,
+					"endScript": false,
+					"key": "007b1c84-e6ca-429a-8ee0-aad391734562",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 1,
+					"order": 3,
+					"name": "error",
+					"connected": 36,
+					"endScript": false,
+					"key": "1bcb1d85-c9e6-4b6d-a1a4-698b8f538d26",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1708,
+					"y": -358
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 2
+			},
+			"type": 1,
+			"id": 2,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"prompt": "3 - InvalidPin",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 2,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 36,
+					"endScript": false,
+					"key": "6e53978c-53a5-41c2-b13c-b439f9830261",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 2,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": 36,
+					"endScript": false,
+					"key": "f1002679-fc96-463c-afe1-9c6efada6f7c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 2,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": 36,
+					"endScript": false,
+					"key": "0fbb3e5d-1573-44d0-9173-8d9deee62f18",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 2,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": 36,
+					"endScript": false,
+					"key": "186645e7-8b32-449e-9c6b-9e6a83629f7c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 2,
+					"order": 4,
+					"name": "error",
+					"connected": 36,
+					"endScript": false,
+					"key": "6e9aac79-bfe7-4088-858c-6a1acdec1fdb",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 120,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 3
+			},
+			"type": 1,
+			"id": 3,
+			"properties": {
+				"medialist": "JSM - Media List",
+				"prompt": "Welcome2",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 3,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 1,
+					"endScript": false,
+					"key": "886e2782-34c3-42ae-bc07-c7e1e2185ba4",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 3,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": 1,
+					"endScript": false,
+					"key": "0096bd61-b715-4b47-a575-8cf0c3ddcbdc",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 3,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": 1,
+					"endScript": false,
+					"key": "e009e359-e1c2-432b-9ee4-d549a2c09698",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 3,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": 1,
+					"endScript": false,
+					"key": "fd42e976-2724-45d1-8b42-9205e23b0c58",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 3,
+					"order": 4,
+					"name": "error",
+					"connected": 1,
+					"endScript": false,
+					"key": "67c74868-295b-41bc-bde5-e130e9b3f096",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 620,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 4
+			},
+			"type": 18,
+			"id": 4,
+			"properties": {
+				"source": "strPinEntry",
+				"length": "intPinEntryLength"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 4,
+					"order": 0,
+					"name": "complete",
+					"connected": 17,
+					"endScript": false,
+					"key": "12cda2cc-d00e-4d0d-8ede-ada4389ed72a",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 4,
+					"order": 1,
+					"name": "error",
+					"connected": 2,
+					"endScript": false,
+					"key": "970755c3-1c3f-4cab-8ab9-9842deb3fde1",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1080,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 9
+			},
+			"type": 16,
+			"id": 9,
+			"properties": {
+				"source": "strPinEntry",
+				"destination": "strPinPrefix",
+				"offset": "=0",
+				"length": "=2"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 9,
+					"order": 0,
+					"name": "complete",
+					"connected": 31,
+					"endScript": false,
+					"key": "ad0f9ae0-6308-4a7b-9d84-67992f1b8ec6",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 9,
+					"order": 1,
+					"name": "error",
+					"connected": 2,
+					"endScript": false,
+					"key": "f6171b88-a342-4db0-9251-84751ec98f62",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1020,
+					"y": 266
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 10
+			},
+			"type": 1,
+			"id": 10,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"prompt": "3 - InvalidPin",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 12,
+					"endScript": false,
+					"key": "69c52099-c5b5-4ad2-b54c-502e2978dfd5",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "6c1be7cb-35dd-4f14-b764-7d8e050b8df6",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": null,
+					"endScript": true,
+					"key": "1b4cab46-f5b5-4f3e-b174-bfeeaa8e5a9e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": 12,
+					"endScript": false,
+					"key": "4fcaf4c0-f7e4-44ee-b451-3cbf0749ce5b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 4,
+					"name": "error",
+					"connected": 12,
+					"endScript": false,
+					"key": "e05e5a7d-a143-4295-a8c8-7575754dfb1b",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1315,
+					"y": 266
+				},
+				"colour": "#ffffff",
+				"customName": "Too short",
+				"properties": {},
+				"id": 12
+			},
+			"type": 60,
+			"id": 12,
+			"properties": {
+				"model": 0,
+				"sayas": "",
+				"language": "en-GB",
+				"provider": 1,
+				"languageselectionmethod": "static",
+				"language_brain": "af-ZA",
+				"voicetypeselectionmethod": "static",
+				"voicetype": "af-ZA-Standard-A",
+				"sayas_brain": "text",
+				"ttsstring": "=I'm sorry, This pin is too long, please enter a 6 digit pin.",
+				"cutthrough": false,
+				"dtmf": [],
+				"pitch": 0,
+				"rate": 100
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 12,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 20,
+					"endScript": false,
+					"key": "1be46284-6e7c-48c9-a7c8-37bc69f60c2c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 12,
+					"order": 1,
+					"name": "error",
+					"connected": 20,
+					"endScript": false,
+					"key": "3302d7dc-b3dd-4b5c-9eb9-c41f05358082",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 12,
+					"order": 2,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "c574ae5e-6265-4adc-83a2-79e420eaf473",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 3
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1401,
+					"y": 194
+				},
+				"colour": "#ffffff",
+				"customName": "Not start 67",
+				"properties": {},
+				"id": 14
+			},
+			"type": 60,
+			"id": 14,
+			"properties": {
+				"model": 0,
+				"sayas": "",
+				"language": "en-GB",
+				"provider": 1,
+				"languageselectionmethod": "static",
+				"language_brain": "",
+				"voicetypeselectionmethod": "static",
+				"voicetype": "",
+				"sayas_brain": "",
+				"ttsstring": "=I'm sorry, the pin must begin with 6 7.",
+				"cutthrough": false,
+				"dtmf": [],
+				"pitch": 0,
+				"rate": 100
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 14,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 20,
+					"endScript": false,
+					"key": "e00957b1-8f52-4ba3-a984-e7333a8ff32d",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 14,
+					"order": 1,
+					"name": "error",
+					"connected": 20,
+					"endScript": false,
+					"key": "d5031d1e-b305-4c28-a701-2a10d554805f",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 14,
+					"order": 2,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "f8a33ed5-7b4d-4d2e-a994-61bbf6eb3c8c",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 3
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1077,
+					"y": 193
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 15
+			},
+			"type": 1,
+			"id": 15,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"prompt": "3 - InvalidPin",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 14,
+					"endScript": false,
+					"key": "69c52099-c5b5-4ad2-b54c-502e2978dfd5",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "6c1be7cb-35dd-4f14-b764-7d8e050b8df6",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": null,
+					"endScript": true,
+					"key": "1b4cab46-f5b5-4f3e-b174-bfeeaa8e5a9e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": 14,
+					"endScript": false,
+					"key": "4fcaf4c0-f7e4-44ee-b451-3cbf0749ce5b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 4,
+					"name": "error",
+					"connected": 14,
+					"endScript": false,
+					"key": "e05e5a7d-a143-4295-a8c8-7575754dfb1b",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": false,
+			"canvas": {
+				"position": {
+					"x": 820,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 17
+			},
+			"type": 35,
+			"id": 17,
+			"properties": {
+				"firstvariable": "intPinEntryLength",
+				"secondvariable": "=6"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 17,
+					"order": 0,
+					"name": "lessthan",
+					"connected": 18,
+					"endScript": false,
+					"key": "f2848350-bf2a-4d5e-a40b-df92c3e7c922",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 17,
+					"order": 1,
+					"name": "greaterthan",
+					"connected": 10,
+					"endScript": false,
+					"key": "93b072ce-dcad-49a7-84ba-f14d8cccdafb",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 17,
+					"order": 2,
+					"name": "equalto",
+					"connected": 9,
+					"endScript": false,
+					"key": "f0cb5478-7c5d-488e-bd85-861e0cd25928",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 17,
+					"order": 3,
+					"name": "error",
+					"connected": 2,
+					"endScript": false,
+					"key": "c68f9eea-4dc0-4ae7-b6bc-26c4b27ed5d0",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 911,
+					"y": 338
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 18
+			},
+			"type": 1,
+			"id": 18,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"prompt": "3 - InvalidPin",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 19,
+					"endScript": false,
+					"key": "69c52099-c5b5-4ad2-b54c-502e2978dfd5",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "6c1be7cb-35dd-4f14-b764-7d8e050b8df6",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": null,
+					"endScript": true,
+					"key": "1b4cab46-f5b5-4f3e-b174-bfeeaa8e5a9e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": 19,
+					"endScript": false,
+					"key": "4fcaf4c0-f7e4-44ee-b451-3cbf0749ce5b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 4,
+					"name": "error",
+					"connected": 19,
+					"endScript": false,
+					"key": "e05e5a7d-a143-4295-a8c8-7575754dfb1b",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1388,
+					"y": 337
+				},
+				"colour": "#ffffff",
+				"customName": "Too long",
+				"properties": {},
+				"id": 19
+			},
+			"type": 60,
+			"id": 19,
+			"properties": {
+				"model": 0,
+				"sayas": "",
+				"language": "en-GB",
+				"provider": 1,
+				"languageselectionmethod": "static",
+				"language_brain": "af-ZA",
+				"voicetypeselectionmethod": "static",
+				"voicetype": "af-ZA-Standard-A",
+				"sayas_brain": "text",
+				"ttsstring": "=I'm sorry, This pin is too short, please enter a 6 digit pin.",
+				"cutthrough": false,
+				"dtmf": [],
+				"pitch": 0,
+				"rate": 100
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 12,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 20,
+					"endScript": false,
+					"key": "1be46284-6e7c-48c9-a7c8-37bc69f60c2c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 12,
+					"order": 1,
+					"name": "error",
+					"connected": 20,
+					"endScript": false,
+					"key": "3302d7dc-b3dd-4b5c-9eb9-c41f05358082",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 12,
+					"order": 2,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "c574ae5e-6265-4adc-83a2-79e420eaf473",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 3
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1661,
+					"y": 279
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 20
+			},
+			"type": 24,
+			"id": 20,
+			"properties": {
+				"commenttext": "=Return to Data Capture"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 20,
+					"order": 0,
+					"name": "complete",
+					"connected": 22,
+					"endScript": false,
+					"key": "15c4830b-41a2-45c9-b91f-a06322c6ecb8",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 20,
+					"order": 1,
+					"name": "error",
+					"connected": 22,
+					"endScript": false,
+					"key": "65ad2710-05ff-46c7-93dc-d3cd6e304b8d",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1743,
+					"y": 440
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 22
+			},
+			"type": 24,
+			"id": 22,
+			"properties": {
+				"commenttext": ""
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 20,
+					"order": 0,
+					"name": "complete",
+					"connected": 23,
+					"endScript": false,
+					"key": "15c4830b-41a2-45c9-b91f-a06322c6ecb8",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 20,
+					"order": 1,
+					"name": "error",
+					"connected": 23,
+					"endScript": false,
+					"key": "65ad2710-05ff-46c7-93dc-d3cd6e304b8d",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 313,
+					"y": 440
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 23
+			},
+			"type": 24,
+			"id": 23,
+			"properties": {
+				"commenttext": ""
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 20,
+					"order": 0,
+					"name": "complete",
+					"connected": 1,
+					"endScript": false,
+					"key": "15c4830b-41a2-45c9-b91f-a06322c6ecb8",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 20,
+					"order": 1,
+					"name": "error",
+					"connected": 1,
+					"endScript": false,
+					"key": "65ad2710-05ff-46c7-93dc-d3cd6e304b8d",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1778,
+					"y": 2
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 29
+			},
+			"type": 5,
+			"id": 29,
+			"properties": {
+				"selectiontype": 0,
+				"addresstype": 0,
+				"numberlist": [
+					{
+						"ddi": "=07446906071",
+						"weight": 0,
+						"callData": ""
+					}
+				],
+				"deliverypoints": [],
+				"medialistselectionmethod": "static",
+				"medialist": "126",
+				"promptonhold": false,
+				"onholdaselectionmethod": "static",
+				"onholda": "",
+				"promptfail": false,
+				"failaselectionmethod": "static",
+				"faila": "",
+				"promptwhisper": false,
+				"whisperselectionmethod": "static",
+				"whisper": "",
+				"timeoutselectionmethod": "static",
+				"timeout": 30,
+				"forwardcli": true,
+				"cli": "",
+				"record": false,
+				"norecorddrop": false,
+				"voicedrop": false,
+				"queuecall": false,
+				"enablequeuetimeout": false,
+				"queuetimeoutselectionmethod": "static",
+				"queuetimeout": 30,
+				"anonymousqueue_enabled": false,
+				"anonymousqueue_id": "",
+				"enablecustomqueuehold": false,
+				"queuehold_serviceid": "",
+				"queuehold_applicationid": "",
+				"queueholdinput": [],
+				"queueholdoutput": [],
+				"enableconnectedscript": false,
+				"connectedscript_serviceid": "",
+				"connectedscript_applicationid": "",
+				"inputvariable": [],
+				"outputvariable": [],
+				"enableviewextendeddata": false,
+				"recordtype": "",
+				"viewdata": {}
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 29,
+					"order": 0,
+					"name": "success",
+					"connected": null,
+					"endScript": true,
+					"key": "4dc9c2f6-6cd6-485b-9f6a-a1daf07314b2",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 1,
+					"name": "fail",
+					"connected": null,
+					"endScript": true,
+					"key": "8b0c38c6-8bc2-42ef-a8e1-eda3f7cfb4d9",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 2,
+					"name": "error",
+					"connected": null,
+					"endScript": true,
+					"key": "c43dc2fd-6055-4dc4-bfcf-5d120425d53e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 3,
+					"name": "dtmf_1",
+					"connected": null,
+					"endScript": false,
+					"key": "71a3a663-fefe-4511-a428-f9a018c5e4ea",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 4,
+					"name": "dtmf_2",
+					"connected": null,
+					"endScript": false,
+					"key": "d6a7a957-300d-47ba-b712-5a1663077e83",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 5,
+					"name": "dtmf_3",
+					"connected": null,
+					"endScript": false,
+					"key": "abed8a36-4c4e-4fd7-a4bc-4576e3da5fe9",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 6,
+					"name": "dtmf_4",
+					"connected": null,
+					"endScript": false,
+					"key": "5f86d0ed-3336-42fe-8ced-179d6e1b9d39",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 7,
+					"name": "dtmf_5",
+					"connected": null,
+					"endScript": false,
+					"key": "062da1bc-54b7-4574-a721-4522f7a84227",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 8,
+					"name": "dtmf_6",
+					"connected": null,
+					"endScript": false,
+					"key": "7f31ef2e-e94c-4d54-bd8f-1f3cafed3abc",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 9,
+					"name": "dtmf_7",
+					"connected": null,
+					"endScript": false,
+					"key": "29db1e4d-f045-452e-8f77-6fd3725a2a11",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 10,
+					"name": "dtmf_8",
+					"connected": null,
+					"endScript": false,
+					"key": "a4398698-bc4a-47ef-8e20-8b6fdf7419de",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 11,
+					"name": "dtmf_9",
+					"connected": null,
+					"endScript": false,
+					"key": "f89f0f0b-00ee-4d09-be5d-3dbb8d6915a2",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 12,
+					"name": "dtmf_0",
+					"connected": null,
+					"endScript": false,
+					"key": "3840dd54-fd9d-4df1-b5c4-5df7967d6684",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 13,
+					"name": "dtmf_*",
+					"connected": null,
+					"endScript": false,
+					"key": "ad96e259-b90a-4d5c-84dc-0ecdcaf38f07",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 14,
+					"name": "dtmf_#",
+					"connected": null,
+					"endScript": false,
+					"key": "1813d849-2320-4f9a-a184-6b0a1e7d5500",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 15,
+					"name": "withdrawn",
+					"connected": null,
+					"endScript": false,
+					"key": "f60d4f6a-490d-4ff8-815c-ca5da59961f4",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 3
+		},
+		{
+			"allowAllRoutes": false,
+			"canvas": {
+				"position": {
+					"x": 1621,
+					"y": -234
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 30
+			},
+			"type": 13,
+			"id": 30,
+			"properties": {
+				"iterations": "lPinEntryAttempts",
+				"exitvalue": "=3"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 30,
+					"order": 0,
+					"name": "lessthan",
+					"connected": 2,
+					"endScript": false,
+					"key": "74356c51-bd04-4d4a-8356-4ae1246278e5",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 30,
+					"order": 1,
+					"name": "greaterthanequalto",
+					"connected": 34,
+					"endScript": false,
+					"key": "fb8391d3-f9de-4fd0-9173-c007a45f6e1d",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 30,
+					"order": 2,
+					"name": "error",
+					"connected": 34,
+					"endScript": false,
+					"key": "7f85e76b-651f-4f3d-95cd-c5ab0ad12906",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1312,
+					"y": 2
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 31
+			},
+			"type": 11,
+			"id": 31,
+			"properties": {
+				"variabletype": 1,
+				"comparevariable": "strPinPrefix"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 31,
+					"order": 0,
+					"name": "nomatch",
+					"connected": 15,
+					"endScript": false,
+					"key": "c3ac8def-5425-40bd-bdf8-ad222a168ef2",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 31,
+					"order": 1,
+					"name": "error",
+					"connected": 15,
+					"endScript": false,
+					"key": "3b4718af-74d9-44e9-9821-f633f6d2da3b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 31,
+					"order": -1,
+					"name": "",
+					"connected": 32,
+					"endScript": false,
+					"key": "51083a5e-37c3-44c8-aa6b-c232760e722a",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=67"
+						}
+					],
+					"custom": true
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1536,
+					"y": -2
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 32
+			},
+			"type": 11,
+			"id": 32,
+			"properties": {
+				"variabletype": 1,
+				"comparevariable": "strPinEntry"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 32,
+					"order": 0,
+					"name": "nomatch",
+					"connected": 30,
+					"endScript": false,
+					"key": "db231e58-bdac-4abb-8cae-7dbeb2ab6ff3",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 32,
+					"order": 1,
+					"name": "error",
+					"connected": 30,
+					"endScript": false,
+					"key": "3160961c-eb50-4a17-acb2-362a7fdebe18",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 32,
+					"order": -1,
+					"name": "",
+					"connected": 29,
+					"endScript": false,
+					"key": "28f62906-dffd-4284-b3ea-4f91f2fca0ea",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=671234"
+						}
+					],
+					"custom": true
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 2105,
+					"y": 75
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 33
+			},
+			"type": 1,
+			"id": 33,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"prompt": "9 - Goodbye",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 33,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": null,
+					"endScript": true,
+					"key": "0646ec8c-c967-4ae1-92e0-b9c937607c81",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 33,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": null,
+					"endScript": true,
+					"key": "471e7f27-1113-4d79-850d-20e9a3996722",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 33,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": null,
+					"endScript": true,
+					"key": "5e602607-b4f9-4485-851b-9f911c462d26",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 33,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": null,
+					"endScript": true,
+					"key": "67efddec-b243-408f-8d78-a2257ee46c2e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 33,
+					"order": 4,
+					"name": "error",
+					"connected": null,
+					"endScript": true,
+					"key": "8effc564-8b7e-43d8-9334-cd6bd5e7a991",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1937,
+					"y": -236
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 34
+			},
+			"type": 1,
+			"id": 34,
+			"properties": {
+				"medialist": "WRCExample_DR",
+				"prompt": "3 - InvalidPin",
+				"medialistselectionmethod": "static",
+				"mediaselectionmethod": "static",
+				"cutthrough": false,
+				"dtmf": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 34,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 35,
+					"endScript": false,
+					"key": "f9cba0ac-51aa-408e-bca1-f785cbd0cf77",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 34,
+					"order": 1,
+					"name": "terminationdigit",
+					"connected": 35,
+					"endScript": false,
+					"key": "6dd23efa-e169-436c-9fef-4d5e6a9273aa",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 34,
+					"order": 2,
+					"name": "speechdetected",
+					"connected": 35,
+					"endScript": false,
+					"key": "3792a613-0edf-4b5a-89f5-8306e2c6113a",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 34,
+					"order": 3,
+					"name": "exittone_all",
+					"connected": 35,
+					"endScript": false,
+					"key": "4eb38f44-d659-4578-8fbf-979534f859a3",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 34,
+					"order": 4,
+					"name": "error",
+					"connected": 35,
+					"endScript": false,
+					"key": "b43586f2-a67e-44f0-9330-b48f8e6da1ce",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 2022,
+					"y": -72
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 35
+			},
+			"type": 60,
+			"id": 35,
+			"properties": {
+				"model": 0,
+				"sayas": "",
+				"language": "en-GB",
+				"provider": 1,
+				"languageselectionmethod": "static",
+				"language_brain": "",
+				"voicetypeselectionmethod": "static",
+				"voicetype": "",
+				"sayas_brain": "",
+				"ttsstring": "=Maximum Attempts reached",
+				"cutthrough": false,
+				"dtmf": [],
+				"pitch": 0,
+				"rate": 100
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 35,
+					"order": 0,
+					"name": "endofprompt",
+					"connected": 33,
+					"endScript": false,
+					"key": "43a8bf9c-7863-4454-905d-20c58445ac8e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 35,
+					"order": 1,
+					"name": "error",
+					"connected": 33,
+					"endScript": false,
+					"key": "ffe324c0-1da2-451c-92a1-feaf40585d3e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 35,
+					"order": 2,
+					"name": "terminationdigit",
+					"connected": 33,
+					"endScript": false,
+					"key": "16600719-7aa7-43ba-b325-1a5bed5cbd7f",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 3
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 404,
+					"y": -359
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 36
+			},
+			"type": 24,
+			"id": 36,
+			"properties": {
+				"commenttext": ""
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 20,
+					"order": 0,
+					"name": "complete",
+					"connected": 1,
+					"endScript": false,
+					"key": "15c4830b-41a2-45c9-b91f-a06322c6ecb8",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 20,
+					"order": 1,
+					"name": "error",
+					"connected": 1,
+					"endScript": false,
+					"key": "65ad2710-05ff-46c7-93dc-d3cd6e304b8d",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		}
+	],
+	"links": [
+		{
+			"from": 3,
+			"to": 1
+		},
+		{
+			"from": 1,
+			"to": 4
+		},
+		{
+			"from": 10,
+			"to": 12
+		},
+		{
+			"from": 15,
+			"to": 14
+		},
+		{
+			"from": 4,
+			"to": 17
+		},
+		{
+			"from": 17,
+			"to": 9
+		},
+		{
+			"from": 17,
+			"to": 10
+		},
+		{
+			"from": 17,
+			"to": 18
+		},
+		{
+			"from": 18,
+			"to": 19
+		},
+		{
+			"from": 12,
+			"to": 20
+		},
+		{
+			"from": 14,
+			"to": 20
+		},
+		{
+			"from": 19,
+			"to": 20
+		},
+		{
+			"from": 20,
+			"to": 22
+		},
+		{
+			"from": 22,
+			"to": 23
+		},
+		{
+			"from": 23,
+			"to": 1
+		},
+		{
+			"from": 9,
+			"to": 31
+		},
+		{
+			"from": 0,
+			"to": 3
+		},
+		{
+			"from": 31,
+			"to": 15
+		},
+		{
+			"from": 31,
+			"to": 32
+		},
+		{
+			"from": 32,
+			"to": 29
+		},
+		{
+			"from": 32,
+			"to": 30
+		},
+		{
+			"from": 30,
+			"to": 34
+		},
+		{
+			"from": 34,
+			"to": 35
+		},
+		{
+			"from": 35,
+			"to": 33
+		},
+		{
+			"from": 2,
+			"to": 36
+		},
+		{
+			"from": 1,
+			"to": 36
+		},
+		{
+			"from": 36,
+			"to": 1
+		},
+		{
+			"from": 4,
+			"to": 2
+		},
+		{
+			"from": 17,
+			"to": 2
+		},
+		{
+			"from": 9,
+			"to": 2
+		},
+		{
+			"from": 30,
+			"to": 2
+		}
+	],
+	"variables": [
+		{
+			"value": "",
+			"name": "strPinEntry",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "intPinEntryLength",
+			"type": 0,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "strPinPrefix",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lPinEntryAttempts",
+			"type": 0,
+			"readOnly": false
+		}
+	],
+	"counters": [],
+	"override": false,
+	"jsonVersion": "3.0.0",
+	"dateModified": "2025-09-26T13:06:39.227+00:00",
+	"applicationVersion": {
+		"major": 21,
+		"minor": 11,
+		"patch": 0
+	}
+}

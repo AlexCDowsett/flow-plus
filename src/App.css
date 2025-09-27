@@ -1,0 +1,132 @@
+.App {
+  text-align: center;
+  background-color: #1A202C;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  background-color: #2D3748;
+  padding: 20px;
+  color: #F7FAFC;
+  border-bottom: 1px solid #4A5568;
+}
+
+.controls {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.controls select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #4A5568;
+  border-radius: 4px;
+  background-color: #2D3748;
+  color: #F7FAFC;
+}
+
+.controls select:focus {
+  outline: none;
+  border-color: #4A9EFF;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-group label {
+  color: #A0AEC0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.smoothing-slider {
+  width: 100px;
+  height: 4px;
+  background: #4A5568;
+  outline: none;
+  border-radius: 2px;
+  -webkit-appearance: none;
+}
+
+.smoothing-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #4A9EFF;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.smoothing-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #4A9EFF;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.smoothing-value {
+  color: #A0AEC0;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 35px;
+}
+
+.zoom-info {
+  color: #A0AEC0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.optimized-toggle {
+  width: 18px;
+  height: 18px;
+  accent-color: #4A9EFF;
+  cursor: pointer;
+}
+
+.method-select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #4A5568;
+  border-radius: 4px;
+  background-color: #2D3748;
+  color: #F7FAFC;
+  cursor: pointer;
+}
+
+.method-select:focus {
+  outline: none;
+  border-color: #4A9EFF;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+.method-select option {
+  background-color: #2D3748;
+  color: #F7FAFC;
+}
+
+.visualization-container {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1A202C;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

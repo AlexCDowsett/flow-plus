@@ -1,0 +1,2241 @@
+{
+	"scriptId": 582859,
+	"scriptServiceType": 1,
+	"scriptName": "EFR-SVCC Email Test",
+	"cells": [
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -2440,
+					"y": 0
+				},
+				"colour": "#23ae06",
+				"customName": "",
+				"properties": {},
+				"id": 0
+			},
+			"type": -1,
+			"id": 0,
+			"properties": {
+				"sendringing": false,
+				"usecleardownservice": false,
+				"service": "",
+				"inputvariable": [],
+				"outputvariable": [],
+				"cleardowninputvariables": []
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 0,
+					"order": 0,
+					"name": "complete",
+					"connected": 34,
+					"endScript": false,
+					"key": "decc30dd-8a21-4a56-86a9-da64f237b6cf",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -560,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 9
+			},
+			"type": 12,
+			"id": 9,
+			"properties": {
+				"destinationvariable": "szLowerCaseFrom",
+				"sourcevariable": "@From Address"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 9,
+					"order": 0,
+					"name": "complete",
+					"connected": 10,
+					"endScript": false,
+					"key": "50f6dd21-cc06-444c-bff6-d1c9241fc148",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 9,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -280,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 10
+			},
+			"type": 45,
+			"id": 10,
+			"properties": {
+				"convertcase": "lower",
+				"string": "szLowerCaseFrom"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "complete",
+					"connected": 11,
+					"endScript": false,
+					"key": "836327c6-32d8-4376-ade9-276f503aed0e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 10,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 2,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 11
+			},
+			"type": 17,
+			"id": 11,
+			"properties": {
+				"searchstring": "=h",
+				"offset": "lOffset",
+				"searchvalue": "szLowerCaseFrom"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 11,
+					"order": 0,
+					"name": "found",
+					"connected": 32,
+					"endScript": false,
+					"key": "980173aa-8c6e-4eab-96cc-b602285b9805",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 11,
+					"order": 1,
+					"name": "notfound",
+					"connected": 12,
+					"endScript": false,
+					"key": "7d2dab68-b2a4-418d-a8a1-55861bc5a25c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 11,
+					"order": 2,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 360,
+					"y": -360
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 12
+			},
+			"type": 19,
+			"id": 12,
+			"properties": {
+				"destination": "szEmailMessage",
+				"formatstring": "=[%s] You are not authorised to use this service",
+				"argument": [
+					{
+						"value": "szLowerCaseFrom"
+					}
+				]
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 5,
+					"order": 0,
+					"name": "complete",
+					"connected": 19,
+					"endScript": false,
+					"key": "5a571bc0-165e-4755-9d10-8a5c9bf0fbe9",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 5,
+					"order": 1,
+					"name": "error",
+					"connected": 19,
+					"endScript": false,
+					"key": "21cdc11f-79b1-4a1e-8998-57c8ee197998",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 840,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 13
+			},
+			"type": 17,
+			"id": 13,
+			"properties": {
+				"searchstring": "szLowercaseMessage",
+				"offset": "lStartOffset",
+				"searchvalue": "=[start]"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 11,
+					"order": 0,
+					"name": "found",
+					"connected": 29,
+					"endScript": false,
+					"key": "980173aa-8c6e-4eab-96cc-b602285b9805",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 11,
+					"order": 1,
+					"name": "notfound",
+					"connected": 38,
+					"endScript": false,
+					"key": "7d2dab68-b2a4-418d-a8a1-55861bc5a25c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 13,
+					"order": 2,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 520,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 15
+			},
+			"type": 12,
+			"id": 15,
+			"properties": {
+				"destinationvariable": "szLowercaseMessage",
+				"sourcevariable": "@Email Message"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 15,
+					"order": 0,
+					"name": "complete",
+					"connected": 17,
+					"endScript": false,
+					"key": "f2001c47-bb52-49dc-a4f3-2be367819256",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 15,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 680,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 17
+			},
+			"type": 45,
+			"id": 17,
+			"properties": {
+				"convertcase": "lower",
+				"string": "szLowercaseMessage"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 17,
+					"order": 0,
+					"name": "complete",
+					"connected": 13,
+					"endScript": false,
+					"key": "888391d7-3138-4715-b136-97a823e0b682",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 17,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 600,
+					"y": -360
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 19
+			},
+			"type": 55,
+			"id": 19,
+			"properties": {
+				"toaddress": [
+					{
+						"value": "@From Address"
+					}
+				],
+				"ccaddress": [],
+				"bccaddress": [],
+				"fromaddress": "=MOTDupdate@timeforstorm.com",
+				"subject": "=South East MOTD Update",
+				"messagetype": "freeform",
+				"message": "szEmailMessage",
+				"enablemailmerge": false,
+				"argument": [],
+				"medialist": 0,
+				"textfile": 0,
+				"medialistselectionmethod": "static",
+				"textfileselectionmethod": "static"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 7,
+					"order": 0,
+					"name": "submitted",
+					"connected": null,
+					"endScript": true,
+					"key": "a7e5ba58-e709-455e-b598-b5149032907f",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 7,
+					"order": 1,
+					"name": "invaliddetails",
+					"connected": null,
+					"endScript": true,
+					"key": "3ec7cd47-32ae-4c07-a781-b5e58e855e0b",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -1120,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 24
+			},
+			"type": 45,
+			"id": 24,
+			"properties": {
+				"convertcase": "lower",
+				"string": "szToAddress"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "complete",
+					"connected": 25,
+					"endScript": false,
+					"key": "836327c6-32d8-4376-ade9-276f503aed0e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 24,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -960,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 25
+			},
+			"type": 11,
+			"id": 25,
+			"properties": {
+				"variabletype": 1,
+				"comparevariable": "szToAddress"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 25,
+					"order": 0,
+					"name": "nomatch",
+					"connected": 39,
+					"endScript": false,
+					"key": "fd24f16c-1eba-476d-a101-f01b06b18d75",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 25,
+					"order": -1,
+					"name": "",
+					"connected": 9,
+					"endScript": false,
+					"key": "a611d98a-c3a8-4ed6-9523-cdbfe7312d9d",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=southeastmotdupdate@timeforstorm.com"
+						}
+					],
+					"custom": true
+				},
+				{
+					"actionCellId": 25,
+					"order": -1,
+					"name": "",
+					"connected": 40,
+					"endScript": false,
+					"key": "a3a52389-9846-4770-bd28-7cdc7a8e121a",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=eastenglandmotdupdate@timeforstorm.com"
+						},
+						{
+							"sign": "=",
+							"value": "=stormprovtest@timeforstorm.com"
+						}
+					],
+					"custom": true
+				},
+				{
+					"actionCellId": 25,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -1320,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 27
+			},
+			"type": 12,
+			"id": 27,
+			"properties": {
+				"destinationvariable": "szToAddress",
+				"sourcevariable": "@To Address"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 9,
+					"order": 0,
+					"name": "complete",
+					"connected": 24,
+					"endScript": false,
+					"key": "50f6dd21-cc06-444c-bff6-d1c9241fc148",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 27,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1000,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 29
+			},
+			"type": 16,
+			"id": 29,
+			"properties": {
+				"source": "szLowercaseMessage",
+				"length": "=250",
+				"destination": "szSE_MOTD",
+				"offset": "lStartOffset"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 29,
+					"order": 0,
+					"name": "complete",
+					"connected": 30,
+					"endScript": false,
+					"key": "9214307e-c868-4f97-b956-9275b8bc044b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 29,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1160,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 30
+			},
+			"type": 20,
+			"id": 30,
+			"properties": {
+				"source": "szSE_MOTD",
+				"search": "=[end]",
+				"replace": "=",
+				"destination": "szSE_MOTD",
+				"usewildcards": false,
+				"casesensitive": true,
+				"replacetype": "all",
+				"nthvalue": 1
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 30,
+					"order": 0,
+					"name": "complete",
+					"connected": 31,
+					"endScript": false,
+					"key": "a0a71a3c-b10c-47ef-b894-1b31dcff0c54",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 30,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1320,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 31
+			},
+			"type": 29,
+			"id": 31,
+			"properties": {
+				"eventid": "SE_Message"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 31,
+					"order": 0,
+					"name": "complete",
+					"connected": null,
+					"endScript": false,
+					"key": "8bb49414-0f0b-448b-b7dd-5ac57c68a50e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 31,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 200,
+					"y": -240
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 32
+			},
+			"type": 11,
+			"id": 32,
+			"properties": {
+				"variabletype": 1,
+				"comparevariable": "szSubject"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 32,
+					"order": 0,
+					"name": "nomatch",
+					"connected": 38,
+					"endScript": false,
+					"key": "70272bfd-a3a3-47d6-abfe-8a069624737b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 32,
+					"order": -1,
+					"name": "",
+					"connected": 15,
+					"endScript": false,
+					"key": "c6de8281-739c-484e-aad7-57d4311fbd10",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=add"
+						}
+					],
+					"custom": true
+				},
+				{
+					"actionCellId": 32,
+					"order": -1,
+					"name": "",
+					"connected": 33,
+					"endScript": false,
+					"key": "ea6db35c-9f40-48c8-b14d-bdd15a29e4c6",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=remove"
+						}
+					],
+					"custom": true
+				},
+				{
+					"actionCellId": 32,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1120,
+					"y": -80
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 33
+			},
+			"type": 12,
+			"id": 33,
+			"properties": {
+				"destinationvariable": "szSE_MOTD",
+				"sourcevariable": "="
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 15,
+					"order": 0,
+					"name": "complete",
+					"connected": 31,
+					"endScript": false,
+					"key": "f2001c47-bb52-49dc-a4f3-2be367819256",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 33,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -2120,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 34
+			},
+			"type": 12,
+			"id": 34,
+			"properties": {
+				"destinationvariable": "szSubject",
+				"sourcevariable": "@Email Subject"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 9,
+					"order": 0,
+					"name": "complete",
+					"connected": 35,
+					"endScript": false,
+					"key": "50f6dd21-cc06-444c-bff6-d1c9241fc148",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 34,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -1800,
+					"y": 0
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 35
+			},
+			"type": 45,
+			"id": 35,
+			"properties": {
+				"convertcase": "lower",
+				"string": "szSubject"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "complete",
+					"connected": 27,
+					"endScript": false,
+					"key": "836327c6-32d8-4376-ade9-276f503aed0e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 35,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 840,
+					"y": -360
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 38
+			},
+			"type": 24,
+			"id": 38,
+			"properties": {
+				"commenttext": ""
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 37,
+					"order": 0,
+					"name": "complete",
+					"connected": null,
+					"endScript": false,
+					"key": "4fa2047d-13bc-4647-b7b0-6f112e91ea18",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 38,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -1190,
+					"y": 517
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 39
+			},
+			"type": 24,
+			"id": 39,
+			"properties": {
+				"commenttext": ""
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 37,
+					"order": 0,
+					"name": "complete",
+					"connected": null,
+					"endScript": false,
+					"key": "4fa2047d-13bc-4647-b7b0-6f112e91ea18",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 39,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -520,
+					"y": -920
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 40
+			},
+			"type": 12,
+			"id": 40,
+			"properties": {
+				"destinationvariable": "szLowerCaseFrom",
+				"sourcevariable": "@From Address"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 9,
+					"order": 0,
+					"name": "complete",
+					"connected": 41,
+					"endScript": false,
+					"key": "50f6dd21-cc06-444c-bff6-d1c9241fc148",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 40,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -300,
+					"y": -920
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 41
+			},
+			"type": 45,
+			"id": 41,
+			"properties": {
+				"convertcase": "lower",
+				"string": "szLowerCaseFrom"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 10,
+					"order": 0,
+					"name": "complete",
+					"connected": 42,
+					"endScript": false,
+					"key": "836327c6-32d8-4376-ade9-276f503aed0e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 41,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": -20,
+					"y": -920
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 42
+			},
+			"type": 17,
+			"id": 42,
+			"properties": {
+				"searchstring": "$EFR-SVCCTesting",
+				"offset": "lOffset",
+				"searchvalue": "szLowerCaseFrom"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 11,
+					"order": 0,
+					"name": "found",
+					"connected": 43,
+					"endScript": false,
+					"key": "980173aa-8c6e-4eab-96cc-b602285b9805",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 11,
+					"order": 1,
+					"name": "notfound",
+					"connected": 44,
+					"endScript": false,
+					"key": "7d2dab68-b2a4-418d-a8a1-55861bc5a25c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 42,
+					"order": 2,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 160,
+					"y": -920
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 43
+			},
+			"type": 11,
+			"id": 43,
+			"properties": {
+				"variabletype": 1,
+				"comparevariable": "szSubject"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 32,
+					"order": 0,
+					"name": "nomatch",
+					"connected": 53,
+					"endScript": false,
+					"key": "70272bfd-a3a3-47d6-abfe-8a069624737b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 43,
+					"order": -1,
+					"name": "",
+					"connected": 46,
+					"endScript": false,
+					"key": "0d56389f-fe8e-403e-b2dd-987420d73e44",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=add"
+						}
+					],
+					"custom": true
+				},
+				{
+					"actionCellId": 43,
+					"order": -1,
+					"name": "",
+					"connected": 52,
+					"endScript": false,
+					"key": "c1e3d22b-59f4-41af-b9fb-564e3d48a0fa",
+					"properties": [
+						{
+							"sign": "=",
+							"value": "=remove"
+						}
+					],
+					"custom": true
+				},
+				{
+					"actionCellId": 43,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 160,
+					"y": -1040
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 44
+			},
+			"type": 19,
+			"id": 44,
+			"properties": {
+				"destination": "szEmailMessage",
+				"formatstring": "=[%s] You are not authorised to use this service",
+				"argument": [
+					{
+						"value": "szLowerCaseFrom"
+					}
+				]
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 5,
+					"order": 0,
+					"name": "complete",
+					"connected": 45,
+					"endScript": false,
+					"key": "5a571bc0-165e-4755-9d10-8a5c9bf0fbe9",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 5,
+					"order": 1,
+					"name": "error",
+					"connected": 45,
+					"endScript": false,
+					"key": "21cdc11f-79b1-4a1e-8998-57c8ee197998",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 360,
+					"y": -1040
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 45
+			},
+			"type": 55,
+			"id": 45,
+			"properties": {
+				"toaddress": [
+					{
+						"value": "@From Address"
+					}
+				],
+				"ccaddress": [],
+				"bccaddress": [],
+				"fromaddress": "=prov@timeforstorm.com",
+				"subject": "=message",
+				"messagetype": "freeform",
+				"message": "szEmailMessage",
+				"enablemailmerge": false,
+				"argument": [],
+				"medialist": 0,
+				"textfile": 0,
+				"medialistselectionmethod": "static",
+				"textfileselectionmethod": "static"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 7,
+					"order": 0,
+					"name": "submitted",
+					"connected": null,
+					"endScript": true,
+					"key": "a7e5ba58-e709-455e-b598-b5149032907f",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 7,
+					"order": 1,
+					"name": "invaliddetails",
+					"connected": null,
+					"endScript": true,
+					"key": "3ec7cd47-32ae-4c07-a781-b5e58e855e0b",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 1
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 400,
+					"y": -920
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 46
+			},
+			"type": 12,
+			"id": 46,
+			"properties": {
+				"destinationvariable": "szEE_MOTD",
+				"sourcevariable": "@Email Message"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 15,
+					"order": 0,
+					"name": "complete",
+					"connected": 54,
+					"endScript": false,
+					"key": "f2001c47-bb52-49dc-a4f3-2be367819256",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 46,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 503,
+					"y": -636
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 47
+			},
+			"type": 45,
+			"id": 47,
+			"properties": {
+				"convertcase": "lower",
+				"string": "szLowercaseMessage"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 17,
+					"order": 0,
+					"name": "complete",
+					"connected": 48,
+					"endScript": false,
+					"key": "888391d7-3138-4715-b136-97a823e0b682",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 47,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 762,
+					"y": -916
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 48
+			},
+			"type": 17,
+			"id": 48,
+			"properties": {
+				"searchstring": "szEE_MOTD",
+				"offset": "lEndOffset",
+				"searchvalue": "=[END]"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 11,
+					"order": 0,
+					"name": "found",
+					"connected": 63,
+					"endScript": false,
+					"key": "980173aa-8c6e-4eab-96cc-b602285b9805",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 11,
+					"order": 1,
+					"name": "notfound",
+					"connected": 53,
+					"endScript": false,
+					"key": "7d2dab68-b2a4-418d-a8a1-55861bc5a25c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 48,
+					"order": 2,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1433,
+					"y": -914
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 49
+			},
+			"type": 16,
+			"id": 49,
+			"properties": {
+				"source": "szEE_MOTD",
+				"length": "lmessagelength",
+				"destination": "szEE_MOTD",
+				"offset": "lstartofmessage"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 29,
+					"order": 0,
+					"name": "complete",
+					"connected": 61,
+					"endScript": false,
+					"key": "9214307e-c868-4f97-b956-9275b8bc044b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 49,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1782,
+					"y": -916
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 50
+			},
+			"type": 20,
+			"id": 50,
+			"properties": {
+				"source": "szEE_MOTD",
+				"search": "=[END]",
+				"replace": "= ",
+				"destination": "szEE_MOTD",
+				"usewildcards": false,
+				"casesensitive": false,
+				"replacetype": "all",
+				"nthvalue": 1
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 30,
+					"order": 0,
+					"name": "complete",
+					"connected": 51,
+					"endScript": false,
+					"key": "a0a71a3c-b10c-47ef-b894-1b31dcff0c54",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 50,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1913,
+					"y": -920
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 51
+			},
+			"type": 29,
+			"id": 51,
+			"properties": {
+				"eventid": "EE_Message"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 31,
+					"order": 0,
+					"name": "complete",
+					"connected": null,
+					"endScript": false,
+					"key": "8bb49414-0f0b-448b-b7dd-5ac57c68a50e",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 51,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 920,
+					"y": -720
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 52
+			},
+			"type": 12,
+			"id": 52,
+			"properties": {
+				"destinationvariable": "szEE_MOTD",
+				"sourcevariable": "="
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 15,
+					"order": 0,
+					"name": "complete",
+					"connected": 51,
+					"endScript": false,
+					"key": "f2001c47-bb52-49dc-a4f3-2be367819256",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 52,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 751,
+					"y": -1125
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 53
+			},
+			"type": 24,
+			"id": 53,
+			"properties": {
+				"commenttext": ""
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 37,
+					"order": 0,
+					"name": "complete",
+					"connected": null,
+					"endScript": false,
+					"key": "4fa2047d-13bc-4647-b7b0-6f112e91ea18",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 53,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 516,
+					"y": -918
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 54
+			},
+			"type": 20,
+			"id": 54,
+			"properties": {
+				"source": "szEE_MOTD",
+				"search": "=[start]",
+				"replace": "=[START]",
+				"destination": "szEE_MOTD",
+				"usewildcards": false,
+				"casesensitive": false,
+				"replacetype": "all",
+				"nthvalue": 1
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 30,
+					"order": 0,
+					"name": "complete",
+					"connected": 56,
+					"endScript": false,
+					"key": "a0a71a3c-b10c-47ef-b894-1b31dcff0c54",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 54,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 632,
+					"y": -917
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 56
+			},
+			"type": 20,
+			"id": 56,
+			"properties": {
+				"source": "szEE_MOTD",
+				"search": "=[end]",
+				"replace": "=[END]",
+				"destination": "szEE_MOTD",
+				"usewildcards": false,
+				"casesensitive": false,
+				"replacetype": "all",
+				"nthvalue": 1
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 30,
+					"order": 0,
+					"name": "complete",
+					"connected": 48,
+					"endScript": false,
+					"key": "a0a71a3c-b10c-47ef-b894-1b31dcff0c54",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 56,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1164,
+					"y": -914
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 59
+			},
+			"type": 40,
+			"id": 59,
+			"properties": {
+				"firstvariable": "lStartOffset",
+				"secondvariable": "=7",
+				"resultvariable": "lstartofmessage"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 59,
+					"order": 0,
+					"name": "complete",
+					"connected": 62,
+					"endScript": false,
+					"key": "c5887e66-e80f-4535-bea3-c843696121b5",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 59,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1647,
+					"y": -915
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 61
+			},
+			"type": 16,
+			"id": 61,
+			"properties": {
+				"source": "szEE_MOTD",
+				"length": "=250",
+				"destination": "szEE_MOTD",
+				"offset": "=0"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 29,
+					"order": 0,
+					"name": "complete",
+					"connected": 50,
+					"endScript": false,
+					"key": "9214307e-c868-4f97-b956-9275b8bc044b",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 61,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 1289,
+					"y": -914
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 62
+			},
+			"type": 40,
+			"id": 62,
+			"properties": {
+				"firstvariable": "lstartofmessage",
+				"secondvariable": "lEndOffset",
+				"resultvariable": "lmessagelength"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 59,
+					"order": 0,
+					"name": "complete",
+					"connected": 49,
+					"endScript": false,
+					"key": "c5887e66-e80f-4535-bea3-c843696121b5",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 62,
+					"order": 1,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		},
+		{
+			"allowAllRoutes": true,
+			"canvas": {
+				"position": {
+					"x": 956,
+					"y": -911
+				},
+				"colour": "#ffffff",
+				"customName": "",
+				"properties": {},
+				"id": 63
+			},
+			"type": 17,
+			"id": 63,
+			"properties": {
+				"searchstring": "szEE_MOTD",
+				"offset": "lStartOffset",
+				"searchvalue": "=[START]"
+			},
+			"exitPoints": [
+				{
+					"actionCellId": 11,
+					"order": 0,
+					"name": "found",
+					"connected": 59,
+					"endScript": false,
+					"key": "980173aa-8c6e-4eab-96cc-b602285b9805",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 11,
+					"order": 1,
+					"name": "notfound",
+					"connected": 53,
+					"endScript": false,
+					"key": "7d2dab68-b2a4-418d-a8a1-55861bc5a25c",
+					"properties": [],
+					"custom": false
+				},
+				{
+					"actionCellId": 63,
+					"order": 2,
+					"name": "error",
+					"connected": null,
+					"endScript": false,
+					"key": "",
+					"properties": [],
+					"custom": false
+				}
+			],
+			"version": 2
+		}
+	],
+	"links": [
+		{
+			"from": 9,
+			"to": 10
+		},
+		{
+			"from": 10,
+			"to": 11
+		},
+		{
+			"from": 11,
+			"to": 12
+		},
+		{
+			"from": 12,
+			"to": 19
+		},
+		{
+			"from": 15,
+			"to": 17
+		},
+		{
+			"from": 17,
+			"to": 13
+		},
+		{
+			"from": 24,
+			"to": 25
+		},
+		{
+			"from": 27,
+			"to": 24
+		},
+		{
+			"from": 25,
+			"to": 9
+		},
+		{
+			"from": 13,
+			"to": 29
+		},
+		{
+			"from": 29,
+			"to": 30
+		},
+		{
+			"from": 30,
+			"to": 31
+		},
+		{
+			"from": 11,
+			"to": 32
+		},
+		{
+			"from": 32,
+			"to": 15
+		},
+		{
+			"from": 32,
+			"to": 33
+		},
+		{
+			"from": 34,
+			"to": 35
+		},
+		{
+			"from": 35,
+			"to": 27
+		},
+		{
+			"from": 13,
+			"to": 38
+		},
+		{
+			"from": 25,
+			"to": 39
+		},
+		{
+			"from": 0,
+			"to": 34
+		},
+		{
+			"from": 25,
+			"to": 40
+		},
+		{
+			"from": 40,
+			"to": 41
+		},
+		{
+			"from": 41,
+			"to": 42
+		},
+		{
+			"from": 42,
+			"to": 43
+		},
+		{
+			"from": 42,
+			"to": 44
+		},
+		{
+			"from": 43,
+			"to": 46
+		},
+		{
+			"from": 44,
+			"to": 45
+		},
+		{
+			"from": 47,
+			"to": 48
+		},
+		{
+			"from": 50,
+			"to": 51
+		},
+		{
+			"from": 43,
+			"to": 52
+		},
+		{
+			"from": 43,
+			"to": 53
+		},
+		{
+			"from": 33,
+			"to": 31
+		},
+		{
+			"from": 52,
+			"to": 51
+		},
+		{
+			"from": 48,
+			"to": 53
+		},
+		{
+			"from": 32,
+			"to": 38
+		},
+		{
+			"from": 46,
+			"to": 54
+		},
+		{
+			"from": 54,
+			"to": 56
+		},
+		{
+			"from": 56,
+			"to": 48
+		},
+		{
+			"from": 49,
+			"to": 61
+		},
+		{
+			"from": 59,
+			"to": 62
+		},
+		{
+			"from": 62,
+			"to": 49
+		},
+		{
+			"from": 48,
+			"to": 63
+		},
+		{
+			"from": 63,
+			"to": 59
+		},
+		{
+			"from": 63,
+			"to": 53
+		},
+		{
+			"from": 61,
+			"to": 50
+		}
+	],
+	"variables": [
+		{
+			"value": "",
+			"name": "szEmailMessage",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "1",
+			"name": "TRUE",
+			"type": 2,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "FALSE",
+			"type": 2,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "szStatus",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "szLowerCaseFrom",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lOffset",
+			"type": 0,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "szLowercaseMessage",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "SVCC Status Change",
+			"name": "szSubject",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "szToAddress",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lStartOffset",
+			"type": 0,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lEndOffset",
+			"type": 0,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "szSE_MOTD",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "",
+			"name": "szEE_MOTD",
+			"type": 1,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lstartofmessage",
+			"type": 0,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lLength",
+			"type": 0,
+			"readOnly": false
+		},
+		{
+			"value": "0",
+			"name": "lmessagelength",
+			"type": 0,
+			"readOnly": false
+		}
+	],
+	"counters": [
+		{
+			"name": "SE_Message",
+			"value": "szSE_MOTD",
+			"scope": 1,
+			"type": 3
+		},
+		{
+			"name": "EE_Message",
+			"value": "szEE_MOTD",
+			"scope": 1,
+			"type": 3
+		}
+	],
+	"override": false,
+	"jsonVersion": "3.0.0",
+	"dateModified": "2023-02-23T17:07:22.08+00:00",
+	"applicationVersion": {
+		"major": 12,
+		"minor": 0,
+		"patch": 1
+	}
+}

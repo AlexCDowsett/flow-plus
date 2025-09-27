@@ -1,0 +1,26 @@
+{
+  "typeNames": {
+    "-1": "Start",
+    "1": "Play Prompt",
+    "3": "Data Entry",
+    "11": "Decision",
+    "12": "Assign Variable",
+    "15": "Comment",
+    "18": "Get String Length",
+    "24": "Reroute",
+    "35": "Compare Variables",
+    "42": "Concatenate String",
+    "43": "Insert String",
+    "45": "Convert Case",
+    "54": "Get Next Record",
+    "60": "Text to Speech",
+    "61": "Database Query",
+    "62": "Send Email",
+    "63": "Format String",
+    "64": "Find String",
+    "65": "Extract String",
+    "66": "Find and Replace",
+    "67": "Sum",
+    "68": "Publish Live Event"
+  }
+}
