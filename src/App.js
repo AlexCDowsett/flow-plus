@@ -1,28 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
+import { getLayoutMethods, applyLayoutMethod } from './layoutOptimization';
+import { applyOverlapOptimization } from './optimization/overlapOptimization';
 
-// Constants
-const FILE_OPTIONS = [
-  { value: 'wheatley', label: 'Wheatley POC ID' },
-  { value: 'ald', label: 'ALD A5' },
-  { value: 'efr', label: 'EFR-SVCC Email Test' }
-];
-
-const OPTIMIZATION_METHODS = [
-  { value: 'Original', label: 'Original Layout' },
-  { value: 'Optimized', label: 'Optimized Layout' }
-];
-
-const DEFAULT_TYPE_NAMES = {
-  '-1': 'Start',
-  '1': 'Play Prompt',
-  '3': 'Data Entry',
-  '11': 'Decision',
-  '12': 'Assign Variable',
-  '15': 'Comment',
-  '24': 'Reroute'
-};
-
+// Import layout config for rendering
 const LAYOUT_CONFIG = {
   cellSpacing: 250,
   levelSpacing: 200,
@@ -32,6 +13,26 @@ const LAYOUT_CONFIG = {
   baseFontSize: 10,
   textOffset: 20
 };
+
+// Constants
+const FILE_OPTIONS = [
+  { value: 'wheatley', label: 'Wheatley POC ID' },
+  { value: 'ald', label: 'ALD A5' },
+  { value: 'efr', label: 'EFR-SVCC Email Test' }
+];
+
+// Get optimization methods dynamically
+const OPTIMIZATION_METHODS = getLayoutMethods();
+
+const DEFAULT_TYPE_NAMES = {
+  '-1': 'Start',
+  '1': 'Play Prompt',
+  '3': 'Data Entry',
+  '11': 'Decision',
+  '12': 'Assign Variable',
+  '15': 'Comment'
+};
+
 
 // Utility functions
 const isLightBackground = (color) => {
@@ -85,7 +86,7 @@ function App() {
   // State
   const [selectedFile, setSelectedFile] = useState('');
   const [flowData, setFlowData] = useState(null);
-  const [selectedMethod, setSelectedMethod] = useState('Original');
+  const [selectedMethod, setSelectedMethod] = useState('original');
   const [optimizedFlowData, setOptimizedFlowData] = useState(null);
   const [typeNames, setTypeNames] = useState({});
   
@@ -99,6 +100,7 @@ function App() {
   const [smoothing, setSmoothing] = useState(50);
   const [circleSize, setCircleSize] = useState(35);
   const [connectionCircleSize, setConnectionCircleSize] = useState(6);
+  const [enableOverlapOptimization, setEnableOverlapOptimization] = useState(false);
   
   const svgRef = useRef(null);
 
@@ -106,6 +108,30 @@ function App() {
   useEffect(() => {
     loadTypeNames();
   }, []);
+
+  // Handle window resize to recalculate viewport
+  useEffect(() => {
+    const handleResize = () => {
+      const currentData = getCurrentData();
+      if (currentData) {
+        calculateViewport(currentData);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [selectedMethod, flowData, optimizedFlowData]);
+
+  // Initial centering when component mounts
+  useEffect(() => {
+    const currentData = getCurrentData();
+    if (currentData) {
+      // Delay to ensure DOM is fully rendered
+      setTimeout(() => {
+        calculateViewport(currentData);
+      }, 100);
+    }
+  }, [flowData, optimizedFlowData]);
 
   useEffect(() => {
     if (selectedFile) {
@@ -115,13 +141,75 @@ function App() {
 
   useEffect(() => {
     if (flowData && selectedMethod) {
-      if (selectedMethod === 'Original') {
-        calculateViewport(flowData);
-      } else if (selectedMethod === 'Optimized' && optimizedFlowData) {
-        calculateViewport(optimizedFlowData);
-      }
+      console.log(`🔄 Layout method changed to: ${selectedMethod}`);
+      
+      // Clear previous optimized data to prevent persistence
+      setOptimizedFlowData(null);
+      console.log('🧹 Cleared previous optimized data');
+      
+      // Small delay to ensure clearing is processed before applying new layout
+      setTimeout(() => {
+        if (selectedMethod === 'original') {
+          const type24Count = flowData.cells ? flowData.cells.filter(cell => cell.type === 24).length : 0;
+          console.log(`📊 Original data - type24Count: ${type24Count}, totalCells: ${flowData.cells ? flowData.cells.length : 0}`);
+          calculateViewport(flowData);
+        } else {
+          // Apply the selected layout method to the original data
+          try {
+            let optimizedData = applyLayoutMethod(flowData, selectedMethod);
+            
+            // Apply overlap optimization if enabled
+            if (enableOverlapOptimization) {
+              console.log('🔧 Applying overlap optimization...');
+              optimizedData = applyOverlapOptimization(optimizedData);
+            }
+            
+            setOptimizedFlowData(optimizedData);
+            
+            const type24Count = optimizedData.cells ? optimizedData.cells.filter(cell => cell.type === 24).length : 0;
+            console.log(`📊 ${selectedMethod} data - type24Count: ${type24Count}, totalCells: ${optimizedData.cells ? optimizedData.cells.length : 0}`);
+            
+            // Calculate viewport after setting the data
+            setTimeout(() => calculateViewport(optimizedData), 10);
+          } catch (error) {
+            console.error(`❌ Failed to apply ${selectedMethod} layout:`, error);
+            // Fallback to original data
+            calculateViewport(flowData);
+          }
+        }
+      }, 50);
     }
-  }, [selectedMethod, flowData, optimizedFlowData]);
+  }, [selectedMethod, flowData]);
+
+  // Reapply overlap optimization when toggle changes
+  useEffect(() => {
+    if (flowData && selectedMethod !== 'original' && optimizedFlowData) {
+      console.log(`🔄 Overlap optimization toggle changed to: ${enableOverlapOptimization}`);
+      
+      // Clear and reapply layout with new overlap optimization setting
+      setTimeout(() => {
+        try {
+          let optimizedData = applyLayoutMethod(flowData, selectedMethod);
+          
+          // Apply overlap optimization if enabled
+          if (enableOverlapOptimization) {
+            console.log('🔧 Applying overlap optimization...');
+            optimizedData = applyOverlapOptimization(optimizedData);
+          }
+          
+          setOptimizedFlowData(optimizedData);
+          
+          const type24Count = optimizedData.cells ? optimizedData.cells.filter(cell => cell.type === 24).length : 0;
+          console.log(`📊 ${selectedMethod} data with overlap optimization - type24Count: ${type24Count}, totalCells: ${optimizedData.cells ? optimizedData.cells.length : 0}`);
+          
+          // Calculate viewport after setting the data
+          setTimeout(() => calculateViewport(optimizedData), 10);
+        } catch (error) {
+          console.error(`❌ Failed to reapply layout with overlap optimization:`, error);
+        }
+      }, 50);
+    }
+  }, [enableOverlapOptimization, flowData, selectedMethod]);
 
   // Data loading functions
   const loadTypeNames = async () => {
@@ -140,13 +228,19 @@ function App() {
       const fileName = getFileName(fileType);
       if (!fileName) return;
 
+      // Clear previous data to prevent persistence
+      setFlowData(null);
+      setOptimizedFlowData(null);
+      console.log('🧹 Cleared previous flow data');
+
       const response = await fetch(`/${fileName}`);
       const data = await response.json();
       setFlowData(data);
+      console.log('📁 Loaded new flow data:', data.scriptName);
       
       // Create optimized layout
       try {
-        const optimized = createOptimizedLayout(data);
+        const optimized = applyLayoutMethod(data, 'optimized');
         setOptimizedFlowData(optimized);
         console.log('✅ Optimized layout created successfully');
       } catch (error) {
@@ -154,8 +248,10 @@ function App() {
         setOptimizedFlowData(null);
       }
       
-      // Apply selected method
+      // Apply selected method with proper centering
+      setTimeout(() => {
       applySelectedMethod(data);
+      }, 50);
     } catch (error) {
       console.error('Error loading flow data:', error);
     }
@@ -171,9 +267,9 @@ function App() {
   };
 
   const applySelectedMethod = (data) => {
-    if (selectedMethod === 'Original') {
+    if (selectedMethod === 'original') {
       calculateViewport(data);
-    } else if (selectedMethod === 'Optimized' && optimizedFlowData) {
+    } else if (optimizedFlowData) {
       calculateViewport(optimizedFlowData);
     } else {
       calculateViewport(data);
@@ -197,232 +293,53 @@ function App() {
     const width = maxX - minX;
     const height = maxY - minY;
 
-    const padding = 100;
-    const viewportWidth = window.innerWidth - padding;
-    const viewportHeight = window.innerHeight - padding;
+    // Get the actual SVG container dimensions
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const headerHeight = 120; // Approximate header height
+    
+    // SVG container dimensions (matches the SVG height="calc(100vh - 120px)")
+    const svgContainerWidth = screenWidth;
+    const svgContainerHeight = screenHeight - headerHeight;
+    
+    // Calculate the middle 75% area within the SVG container
+    const availableWidth = svgContainerWidth * 0.75;
+    const availableHeight = svgContainerHeight * 0.75;
+    
+    // Center the 75% area within the SVG container
+    const viewportWidth = availableWidth;
+    const viewportHeight = availableHeight;
+    const viewportOffsetX = (svgContainerWidth - availableWidth) / 2;
+    const viewportOffsetY = (svgContainerHeight - availableHeight) / 2;
 
     const scaleX = viewportWidth / width;
     const scaleY = viewportHeight / height;
     const scale = Math.min(scaleX, scaleY, 1);
 
-    setZoom(scale);
-    setOffset({
-      x: (viewportWidth - width * scale) / 2 - minX * scale,
-      y: (viewportHeight - height * scale) / 2 - minY * scale
-    });
+    // Ensure minimum scale for very small flow charts
+    const minScale = 0.1;
+    const finalScale = Math.max(scale, minScale);
+
+    // Calculate the center of the flow chart
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+
+    // Calculate offset to center the flow chart in the viewport
+    const offsetX = viewportOffsetX + (viewportWidth / 2) - (centerX * finalScale);
+    const offsetY = viewportOffsetY + (viewportHeight / 2) - (centerY * finalScale);
+
+    console.log(`📐 Viewport calculation:`);
+    console.log(`  Screen: ${screenWidth}x${screenHeight}`);
+    console.log(`  SVG Container: ${svgContainerWidth}x${svgContainerHeight}`);
+    console.log(`  Available (75%): ${viewportWidth}x${viewportHeight}`);
+    console.log(`  Flow bounds: ${width.toFixed(0)}x${height.toFixed(0)} (${minX.toFixed(0)},${minY.toFixed(0)} to ${maxX.toFixed(0)},${maxY.toFixed(0)})`);
+    console.log(`  Scale: ${finalScale.toFixed(2)}, Offset: (${offsetX.toFixed(0)}, ${offsetY.toFixed(0)})`);
+    console.log(`  Center: (${centerX.toFixed(0)}, ${centerY.toFixed(0)})`);
+
+    setZoom(finalScale);
+    setOffset({ x: offsetX, y: offsetY });
   };
 
-  // Layout optimization
-  const createOptimizedLayout = (data) => {
-    if (!data?.cells) {
-      console.error('❌ Invalid data provided to createOptimizedLayout');
-      return null;
-    }
-
-    try {
-      console.log('🔧 Starting optimization for data:', data.scriptName);
-      console.log('📊 Total cells:', data.cells.length);
-
-      const { filteredCells, connections } = processCells(data);
-      const { levels, levelGroups } = assignLevels(filteredCells, connections);
-      const optimizedCells = positionCells(filteredCells, levels, levelGroups);
-      const finalCells = addRoutingCells(optimizedCells, connections, levels);
-
-      console.log('✅ Optimization complete!');
-      console.log('📊 Final cell count:', finalCells.length);
-      console.log('🔀 Type 24 cells added:', finalCells.filter(cell => cell.type === 24).length);
-
-      return { ...data, cells: finalCells };
-    } catch (error) {
-      console.error('❌ Error in createOptimizedLayout:', error);
-      return data;
-    }
-  };
-
-  const processCells = (data) => {
-    const type24Cells = data.cells.filter(cell => cell.type === 24);
-    const filteredCells = data.cells.filter(cell => cell.type !== 24);
-    
-    console.log('🔀 Type 24 cells found:', type24Cells.length);
-    console.log('✅ Filtered cells (non-24):', filteredCells.length);
-
-    const connections = [];
-    const cellMap = new Map();
-    
-    data.cells.forEach(cell => {
-      cellMap.set(cell.id, cell);
-    });
-
-    data.cells.forEach(cell => {
-      if (cell.type === 24) return;
-      
-      if (cell.exitPoints) {
-        cell.exitPoints.forEach(exitPoint => {
-          if (exitPoint.connected !== null && exitPoint.connected !== undefined) {
-            const targetCell = cellMap.get(exitPoint.connected);
-            if (targetCell && targetCell.type !== 24) {
-              connections.push({
-                from: cell.id,
-                to: targetCell.id,
-                name: exitPoint.name
-              });
-            }
-          }
-        });
-      }
-    });
-
-    console.log('🔗 Connections found:', connections.length);
-    return { filteredCells, connections };
-  };
-
-  const assignLevels = (filteredCells, connections) => {
-    const adjacencyList = new Map();
-    const inDegree = new Map();
-    
-    filteredCells.forEach(cell => {
-      adjacencyList.set(cell.id, []);
-      inDegree.set(cell.id, 0);
-    });
-
-    connections.forEach(conn => {
-      if (adjacencyList.has(conn.from) && adjacencyList.has(conn.to)) {
-        adjacencyList.get(conn.from).push(conn.to);
-        inDegree.set(conn.to, inDegree.get(conn.to) + 1);
-      }
-    });
-
-    const startNodes = filteredCells.filter(cell => inDegree.get(cell.id) === 0);
-    const startNode = startNodes.find(cell => cell.type === -1) || startNodes[0];
-    
-    console.log('🚀 Start nodes found:', startNodes.length);
-    console.log('🎯 Selected start node:', startNode ? `ID: ${startNode.id}, Type: ${startNode.type}` : 'None');
-
-    const levels = new Map();
-    const queue = [{ cell: startNode, level: 0 }];
-    const visited = new Set();
-
-    while (queue.length > 0) {
-      const { cell, level } = queue.shift();
-      
-      if (visited.has(cell.id)) continue;
-      visited.add(cell.id);
-      
-      levels.set(cell.id, level);
-      
-      const connectedCells = adjacencyList.get(cell.id) || [];
-      connectedCells.forEach(connectedId => {
-        if (!visited.has(connectedId)) {
-          const connectedCell = filteredCells.find(c => c.id === connectedId);
-          if (connectedCell) {
-            queue.push({ cell: connectedCell, level: level + 1 });
-          }
-        }
-      });
-    }
-
-    filteredCells.forEach(cell => {
-      if (!visited.has(cell.id)) {
-        levels.set(cell.id, 0);
-      }
-    });
-
-    const levelGroups = new Map();
-    levels.forEach((level, cellId) => {
-      if (!levelGroups.has(level)) {
-        levelGroups.set(level, []);
-      }
-      levelGroups.get(level).push(cellId);
-    });
-
-    console.log('📈 Cells processed:', visited.size);
-    console.log('📊 Level distribution:', Array.from(levels.values()).reduce((acc, level) => {
-      acc[level] = (acc[level] || 0) + 1;
-      return acc;
-    }, {}));
-
-    return { levels, levelGroups };
-  };
-
-  const positionCells = (filteredCells, levels, levelGroups) => {
-    return filteredCells.map(cell => {
-      const level = levels.get(cell.id) || 0;
-      const levelCells = levelGroups.get(level) || [];
-      const cellIndex = levelCells.indexOf(cell.id);
-      
-      const x = LAYOUT_CONFIG.startX + level * LAYOUT_CONFIG.levelSpacing;
-      const y = LAYOUT_CONFIG.startY + (cellIndex - (levelCells.length - 1) / 2) * LAYOUT_CONFIG.cellSpacing;
-
-      return {
-        ...cell,
-        canvas: {
-          ...cell.canvas,
-          position: { x, y }
-        }
-      };
-    });
-  };
-
-  const addRoutingCells = (optimizedCells, connections, levels) => {
-    const finalCells = [...optimizedCells];
-    
-    connections.forEach(conn => {
-      const fromCell = optimizedCells.find(c => c.id === conn.from);
-      const toCell = optimizedCells.find(c => c.id === conn.to);
-      
-      if (fromCell && toCell && fromCell.canvas && toCell.canvas && 
-          fromCell.canvas.position && toCell.canvas.position) {
-        const fromLevel = levels.get(conn.from) || 0;
-        const toLevel = levels.get(conn.to) || 0;
-        
-        const levelDiff = toLevel - fromLevel;
-        const verticalDiff = Math.abs(fromCell.canvas.position.y - toCell.canvas.position.y);
-        
-        if (levelDiff > 1 && verticalDiff > 300) {
-          const type24Cell = createType24Cell(conn.from, conn.to, fromCell, toCell);
-          
-          const fromCellIndex = finalCells.findIndex(c => c.id === conn.from);
-          if (fromCellIndex !== -1) {
-            finalCells[fromCellIndex] = {
-              ...finalCells[fromCellIndex],
-              exitPoints: finalCells[fromCellIndex].exitPoints.map(ep => 
-                ep.connected === conn.to ? { ...ep, connected: type24Cell.id } : ep
-              )
-            };
-          }
-          
-          finalCells.push(type24Cell);
-        }
-      }
-    });
-
-    return finalCells;
-  };
-
-  const createType24Cell = (fromId, toId, fromCell, toCell) => {
-    return {
-      type: 24,
-      id: `routing_${fromId}_${toId}`,
-      canvas: {
-        position: {
-          x: fromCell.canvas.position.x + (toCell.canvas.position.x - fromCell.canvas.position.x) * 0.5,
-          y: fromCell.canvas.position.y + (toCell.canvas.position.y - fromCell.canvas.position.y) * 0.5
-        },
-        colour: "#4A9EFF"
-      },
-      properties: { commenttext: "" },
-      exitPoints: [{
-        actionCellId: `routing_${fromId}_${toId}`,
-        order: 0,
-        name: "complete",
-        connected: toId,
-        endScript: false,
-        key: `routing_${fromId}_${toId}`,
-        properties: [],
-        custom: false
-      }]
-    };
-  };
 
   // Mouse event handlers
   const handleWheel = (e) => {
@@ -462,14 +379,59 @@ function App() {
     setIsDragging(false);
   };
 
+  // Download current layout as JSON
+  const downloadCurrentLayout = () => {
+    const currentData = getCurrentData();
+    if (!currentData) {
+      console.error('❌ No data to download');
+      return;
+    }
+
+    // Create a deep copy of the current data
+    const dataToDownload = JSON.parse(JSON.stringify(currentData));
+    
+    // Add metadata about the layout and optimization
+    dataToDownload.layoutInfo = {
+      method: selectedMethod,
+      overlapOptimization: enableOverlapOptimization,
+      timestamp: new Date().toISOString(),
+      rerouteCellsCount: dataToDownload.cells ? dataToDownload.cells.filter(cell => cell.type === 24).length : 0
+    };
+
+    // Create filename with timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    const filename = `${dataToDownload.scriptName || 'flow'}_${selectedMethod}${enableOverlapOptimization ? '_optimized' : ''}_${timestamp}.json`;
+
+    // Create and trigger download
+    const blob = new Blob([JSON.stringify(dataToDownload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    console.log(`📥 Downloaded layout: ${filename}`);
+    console.log(`📊 Cells: ${dataToDownload.cells ? dataToDownload.cells.length : 0}, Reroutes: ${dataToDownload.layoutInfo.rerouteCellsCount}`);
+  };
+
   // Rendering functions
   const getCurrentData = () => {
-    return selectedMethod === 'Original' ? flowData : optimizedFlowData;
+    const data = selectedMethod === 'original' ? flowData : optimizedFlowData;
+    if (data) {
+      const type24Count = data.cells ? data.cells.filter(cell => cell.type === 24).length : 0;
+      console.log(`🔍 getCurrentData: method=${selectedMethod}, type24Count=${type24Count}, totalCells=${data.cells ? data.cells.length : 0}`);
+    } else {
+      console.log(`🔍 getCurrentData: method=${selectedMethod}, data=null (${selectedMethod === 'original' ? 'flowData' : 'optimizedFlowData'})`);
+    }
+    return data;
   };
 
   const renderConnections = () => {
     const currentData = getCurrentData();
-    if (!currentData) return null;
+    if (!currentData || !currentData.cells) return null;
 
     const connections = [];
     const cellMap = new Map();
@@ -572,7 +534,7 @@ function App() {
 
   const renderCells = () => {
     const currentData = getCurrentData();
-    if (!currentData) return null;
+    if (!currentData || !currentData.cells) return null;
 
     return currentData.cells.map(cell => {
       const x = cell.canvas.position.x * zoom + offset.x;
@@ -690,6 +652,29 @@ function App() {
             </select>
           </div>
           
+          <div className="control-group">
+            <label htmlFor="overlap-optimization-toggle">
+              <input
+                id="overlap-optimization-toggle"
+                type="checkbox"
+                checked={enableOverlapOptimization}
+                onChange={(e) => setEnableOverlapOptimization(e.target.checked)}
+                className="overlap-toggle"
+              />
+              Overlap Optimization (U/N-shaped rerouting)
+            </label>
+          </div>
+          
+          <div className="control-group">
+            <button
+              onClick={downloadCurrentLayout}
+              className="download-button"
+              disabled={!getCurrentData()}
+            >
+              📥 Download Current Layout
+            </button>
+          </div>
+          
           <div className="zoom-info">
             Zoom: {Math.round(zoom * 100)}% | Drag to pan
           </div>
@@ -697,7 +682,7 @@ function App() {
       </header>
       
       <main className="visualization-container">
-        {(flowData || optimizedFlowData) && (
+        {flowData && getCurrentData() && (
           <svg
             ref={svgRef}
             width="100%"
